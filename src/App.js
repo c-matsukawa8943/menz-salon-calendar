@@ -1,23 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import { db } from './firebase';
+import { useState, useEffect } from 'react';
+import { collection, getDocs, onSnapshot } from "firebase/firestore"; 
 
 function App() {
+  const[posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const postRef = collection(db, "posts");
+    getDocs(postRef).then((snapshot) => {
+      setPosts(snapshot.docs.map((doc) => ({
+        ...doc.data(),
+      })));
+
+      onSnapshot(postRef, (post) => {
+        setPosts(post.docs.map((doc) => ({
+          ...doc.data(),
+        })));
+      });
+    });
+  }, []);
+
+  
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {posts.map((post) => (
+        <div key={post.id}>
+          <h1>{post.title}</h1>
+          <p>{post.text}</p>
+        </div>
+      ))}
     </div>
   );
 }
