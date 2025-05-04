@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
-import { auth } from './firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+'use client'
 
-const Login = () => {
+import React, { useState } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/libs/firebase';
+
+export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const handleLogin = async (e) => {
+    const handleLogin = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
         setError('');
@@ -16,7 +18,7 @@ const Login = () => {
             await signInWithEmailAndPassword(auth, email, password);
             // ログイン成功時の処理（例：リダイレクトなど）
         } catch (err) {
-            setError('ログインに失敗しました: ' + err.message);
+            setError('ログインに失敗しました: ' + err);
         }
         setLoading(false);
     };
@@ -61,5 +63,3 @@ const Login = () => {
         </div>
     );
 };
-
-export default Login; 
