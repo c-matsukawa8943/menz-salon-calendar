@@ -3,12 +3,14 @@
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/libs/firebase';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
     const handleLogin = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -16,7 +18,7 @@ export default function Login() {
         setError('');
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            // ログイン成功時の処理（例：リダイレクトなど）
+            router.push('/calendar'); // ログイン成功時にカレンダー画面へ遷移
         } catch (err) {
             setError('ログインに失敗しました: ' + err);
         }
