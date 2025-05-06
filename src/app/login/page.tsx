@@ -18,7 +18,19 @@ export default function Login() {
         setError('');
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            router.push('/calendar'); // ログイン成功時にカレンダー画面へ遷移
+            const idToken = await auth.currentUser?.getIdToken();
+            if (idToken) {
+                const res = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ idToken }),
+                });
+                if (res.ok) {
+                    window.location.href = '/calendar';
+                } else {
+                    setError('API レスポンスエラー: ' + await res.text());
+                }
+            }
         } catch (err) {
             setError('ログインに失敗しました: ' + err);
         }
@@ -26,8 +38,7 @@ export default function Login() {
     };
 
     const handleRegister = () => {
-        // 新規登録画面への遷移やモーダル表示など（必要に応じて実装）
-        alert('新規登録機能は未実装です');
+        router.push('/register'); // 新規登録画面へ遷移
     };
 
     return (

@@ -1,24 +1,23 @@
 'use client'
-import React from "react";
-import { signOut } from "firebase/auth";
-import { auth } from "@/libs/firebase";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { auth } from "@/libs/firebase";
+import CalendarTable from "./CalendarTable";
+import Header from "./Header";
 
 const CalendarPage = () => {
   const router = useRouter();
 
-  const handleLogout = async () => {
-    await signOut(auth);
-    router.push("/login");
-  };
+  // useEffect(() => {
+  //   if (!auth.currentUser) {
+  //     router.push("/login");
+  //   }
+  // }, []);
 
   return (
     <div>
-      <h1>カレンダー画面</h1>
-      <p>ここにカレンダーを表示します。</p>
-      <button onClick={handleLogout} style={{ marginTop: 24, padding: 10 }}>
-        ログアウト
-      </button>
+      <Header />
+      <CalendarTable />
     </div>
   );
 };
