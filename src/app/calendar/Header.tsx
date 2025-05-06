@@ -3,12 +3,10 @@ import React, { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 import { signOut } from "firebase/auth";
 import { auth, db } from "@/libs/firebase";
-import { useRouter } from "next/navigation";
 import { doc, getDoc } from "firebase/firestore";
 
 const Header: React.FC = () => {
   const [userName, setUserName] = useState<string>("");
-  const router = useRouter();
 
   useEffect(() => {
     const fetchUserName = async () => {
@@ -34,8 +32,8 @@ const Header: React.FC = () => {
       // 2. クッキー削除APIを呼び出し
       await fetch('/api/logout', { method: 'POST' });
       
-      // 3. ログインページに遷移
-      router.push('/login');
+      // 3. ログインページに遷移 (より確実なページ遷移のため)
+      window.location.href = '/login';
     } catch (error) {
       console.error('ログアウト中にエラーが発生しました:', error);
     }

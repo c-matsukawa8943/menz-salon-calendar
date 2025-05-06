@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAuth } from 'firebase-admin/auth';
 import { initializeApp, getApps, cert } from 'firebase-admin/app';
 
 const firebaseAdminApp = getApps().length === 0 
@@ -18,8 +17,6 @@ export async function POST(req: NextRequest) {
   if (!idToken) {
     return NextResponse.json({ error: 'ID token is required' }, { status: 400 });
   }
-
-  const adminAuth = getAuth(firebaseAdminApp);
   
   const response = NextResponse.json({ success: true });
   
