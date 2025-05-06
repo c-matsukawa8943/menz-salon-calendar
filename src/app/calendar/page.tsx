@@ -8,12 +8,6 @@ import Header from "./Header";
 const CalendarPage = () => {
   const router = useRouter();
 
-  // useEffect(() => {
-  //   if (!auth.currentUser) {
-  //     router.push("/login");
-  //   }
-  // }, []);
-
   return (
     <div>
       <Header />

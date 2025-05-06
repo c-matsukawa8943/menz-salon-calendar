@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from '@/libs/firebase';
-import { useRouter } from 'next/navigation';
 import { doc, setDoc } from 'firebase/firestore';
 
 const RegisterPage = () => {
@@ -12,7 +11,6 @@ const RegisterPage = () => {
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,14 +19,30 @@ const RegisterPage = () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      console.log(user.uid);
+      
       // Firestoreにユーザー情報（名前）を保存
       await setDoc(doc(db, 'users', user.uid), {
         name: name,
         email: email,
         createdAt: new Date()
       });
-      router.push('/calendar'); // 登録成功時にカレンダー画面へ遷移
+      
+      // IDトークンを取得
+      const idToken = await user.getIdToken();
+      
+      // ログインAPIにトークンを送信してクッキーをセット
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idToken }),
+      });
+      
+      if (res.ok) {
+        // 登録・ログイン成功時にカレンダー画面へ遷移
+        window.location.href = '/calendar';
+      } else {
+        setError('ログイン処理に失敗しました');
+      }
     } catch (err: any) {
       setError('登録に失敗しました: ' + (err.message || err));
     }
