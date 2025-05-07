@@ -29,6 +29,8 @@ export const config = {
   matcher: [
     '/calendar/:path*',
     '/reservation/confirmation/:path*',
+    '/reservation/:path*',
+    '/reservation',
     '/admin/:path*',
     '/mypage/:path*'
   ],

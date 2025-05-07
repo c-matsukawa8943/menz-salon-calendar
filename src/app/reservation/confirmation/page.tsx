@@ -14,15 +14,12 @@ const ReservationConfirmation: React.FC = () => {
   const [reservation, setReservation] = useState<ReservationData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [isAuthChecking, setIsAuthChecking] = useState(true);
 
   useEffect(() => {
     // 認証チェック
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (!user) {
         router.push("/login");
-      } else {
-        setIsAuthChecking(false);
       }
     });
     return () => unsubscribe();
@@ -59,10 +56,6 @@ const ReservationConfirmation: React.FC = () => {
   const handleBackToHome = () => {
     router.push("/");
   };
-
-  if (isAuthChecking) {
-    return <div>認証確認中...</div>;
-  }
 
   if (isLoading) {
     return (
