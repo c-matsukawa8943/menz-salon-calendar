@@ -49,7 +49,14 @@ const TopPage = () => {
       <main className={styles.myPageContainer}>
         <h1 className={styles.myPageTitle}>メンズ脱毛サロン<br />Salon Calendar App</h1>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem' }}>
-          <Image src="/salon2.png" alt="サロンイメージ2" width={400} height={300} style={{ width: '100%', maxWidth: 400, borderRadius: 12, boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }} />
+          <Image
+            src="/salon2.png"
+            alt="サロンイメージ2"
+            width={400}
+            height={300}
+            style={{ width: '100%', maxWidth: 400, borderRadius: 12, boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}
+            priority
+          />
         </div>
         <p style={{ fontSize: '1.2rem', margin: '2rem 0', textAlign: 'center' }}>
           最新の脱毛機器と丁寧なカウンセリングで<br />
