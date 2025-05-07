@@ -56,6 +56,12 @@
 
 .calendarTable .holiday {
     background: #ffe4ec;
+    color: #e91e63;
+}
+
+.calendarTable .saturday {
+    background: #e3f2fd;
+    color: #1976d2;
 }
 
 .calendarTable .unavailable {

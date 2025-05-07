@@ -19,9 +19,10 @@ const SERVICES = [
 interface ReservationFormProps {
   date: string | null;
   time: string | null;
+  user: any;
 }
 
-const ReservationForm: React.FC<ReservationFormProps> = ({ date, time }) => {
+const ReservationForm: React.FC<ReservationFormProps> = ({ date, time, user }) => {
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
@@ -102,6 +103,8 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ date, time }) => {
         notes: formData.notes,
         date,
         time,
+        uid: user.uid,
+        userEmail: user.email,
       };
       
       const result = await createReservation(reservationData);

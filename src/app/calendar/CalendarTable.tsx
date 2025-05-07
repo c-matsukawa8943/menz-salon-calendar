@@ -12,15 +12,14 @@ const TIMES = [
 const WEEKDAYS = ["日", "月", "火", "水", "木", "金", "土"];
 
 function getWeekDates(baseDate: Date) {
-  // baseDateを含む週の月曜〜日曜の日付配列を返す
+  // baseDateを含む週の日曜〜土曜の日付配列を返す
   const week: Date[] = [];
-  const day = baseDate.getDay();
-  // 月曜始まり
-  const monday = new Date(baseDate);
-  monday.setDate(baseDate.getDate() - ((day + 6) % 7));
+  const day = baseDate.getDay(); // 0:日曜, 1:月曜, ..., 6:土曜
+  const sunday = new Date(baseDate);
+  sunday.setDate(baseDate.getDate() - day); // 今週の日曜
   for (let i = 0; i < 7; i++) {
-    const d = new Date(monday);
-    d.setDate(monday.getDate() + i);
+    const d = new Date(sunday);
+    d.setDate(sunday.getDate() + i);
     week.push(d);
   }
   return week;
@@ -123,7 +122,16 @@ const CalendarTable: React.FC = () => {
             <thead>
               <tr>
                 {weekDates.map((date, i) => (
-                  <th key={i} className={i === 0 ? styles.holiday : i === 6 ? styles.today : undefined}>
+                  <th
+                    key={i}
+                    className={
+                      date.getDay() === 0
+                        ? styles.holiday   // 日曜（赤）
+                        : date.getDay() === 6
+                        ? styles.saturday // 土曜（青）
+                        : undefined
+                    }
+                  >
                     {date.getDate()}<br />({WEEKDAYS[date.getDay()]})
                   </th>
                 ))}

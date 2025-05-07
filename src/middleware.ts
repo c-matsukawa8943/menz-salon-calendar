@@ -7,19 +7,29 @@ export function middleware(request: NextRequest) {
   // クッキーの取得
   const token = request.cookies.get('firebase_id_token');
   console.log('トークンの有無:', !!token);
-  
-  // '/calendar'へのアクセスかつトークンがない場合、ログインページにリダイレクト
-  if (request.nextUrl.pathname.startsWith('/calendar')) {
-    if (!token) {
-      console.log('認証トークンがないため、ログインページにリダイレクト');
-      return NextResponse.redirect(new URL('/login', request.url));
-    }
-    console.log('認証トークンあり、アクセス許可');
+
+  // matcherで指定したすべてのパスで認証チェック
+  const protectedPaths = [
+    '/calendar',
+    '/reservation/confirmation',
+    '/admin',
+    '/mypage'
+  ];
+  const isProtected = protectedPaths.some((path) => request.nextUrl.pathname.startsWith(path));
+
+  if (isProtected && !token) {
+    console.log('認証トークンがないため、ログインページにリダイレクト');
+    return NextResponse.redirect(new URL('/login', request.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/calendar/:path*'], 
+  matcher: [
+    '/calendar/:path*',
+    '/reservation/confirmation/:path*',
+    '/admin/:path*',
+    '/mypage/:path*'
+  ],
 };
