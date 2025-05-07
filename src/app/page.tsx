@@ -5,10 +5,12 @@ import { auth } from "@/libs/firebase";
 import { getAllReservations, cancelReservation, ReservationData } from "@/services/reservationService";
 import styles from "./page.module.css";
 import Header from "./calendar/Header";
+import type { User } from "firebase/auth";
+import Image from "next/image";
 
 const TopPage = () => {
   const router = useRouter();
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [reservations, setReservations] = useState<ReservationData[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -18,7 +20,7 @@ const TopPage = () => {
       if (user) {
         const all = await getAllReservations();
         const myReservations = all.filter(
-          (r: any) => r.email === user.email // または r.uid === user.uid
+          (r: ReservationData) => r.email === user?.email // または r.uid === user?.uid
         );
         setReservations(myReservations);
       }
@@ -47,7 +49,7 @@ const TopPage = () => {
       <main className={styles.myPageContainer}>
         <h1 className={styles.myPageTitle}>メンズ脱毛サロン<br />Salon Calendar App</h1>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem' }}>
-          <img src="/salon2.png" alt="サロンイメージ2" style={{ width: '100%', maxWidth: 400, borderRadius: 12, boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }} />
+          <Image src="/salon2.png" alt="サロンイメージ2" width={400} height={300} style={{ width: '100%', maxWidth: 400, borderRadius: 12, boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }} />
         </div>
         <p style={{ fontSize: '1.2rem', margin: '2rem 0', textAlign: 'center' }}>
           最新の脱毛機器と丁寧なカウンセリングで<br />

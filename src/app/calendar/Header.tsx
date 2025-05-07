@@ -6,12 +6,13 @@ import { auth, db } from "@/libs/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { ADMIN_EMAILS, ADMIN_UIDS } from "../../constants/admin";
+import type { User } from "firebase/auth";
 
 const Header: React.FC = () => {
   const [userName, setUserName] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
 
   useEffect(() => {

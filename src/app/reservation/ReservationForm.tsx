@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./Reservation.module.css";
 import { createReservation } from "../../services/reservationService";
+import type { User } from "firebase/auth";
 
 // 提供サービスのリスト（仮データ）
 const SERVICES = [
@@ -19,7 +20,7 @@ const SERVICES = [
 interface ReservationFormProps {
   date: string | null;
   time: string | null;
-  user: any;
+  user: User | null;
 }
 
 const ReservationForm: React.FC<ReservationFormProps> = ({ date, time, user }) => {
@@ -103,8 +104,8 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ date, time, user }) =
         notes: formData.notes,
         date,
         time,
-        uid: user.uid,
-        userEmail: user.email,
+        uid: user?.uid,
+        userEmail: user?.email,
       };
       
       const result = await createReservation(reservationData);

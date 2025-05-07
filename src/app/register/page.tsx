@@ -44,8 +44,8 @@ const RegisterPage = () => {
       } else {
         setError('ログイン処理に失敗しました');
       }
-    } catch (err: any) {
-      setError('登録に失敗しました: ' + (err.message || err));
+    } catch (err) {
+      setError('登録に失敗しました: ' + (err as Error).message);
     }
     setLoading(false);
   };

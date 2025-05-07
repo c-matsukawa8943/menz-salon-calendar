@@ -5,13 +5,14 @@ import { auth } from "@/libs/firebase";
 import ReservationForm from "./ReservationForm";
 import styles from "./Reservation.module.css";
 import { testFirebaseConnection } from "../../services/reservationService";
+import type { User } from "firebase/auth";
 
 const ReservationPage: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const date = searchParams.get("date");
   const time = searchParams.get("time");
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [connectionStatus, setConnectionStatus] = useState<{ success: boolean, message: string } | null>(null);
 

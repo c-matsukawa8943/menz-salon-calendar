@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(req: NextRequest) {
+export async function POST(_: NextRequest) {
   const response = NextResponse.json({ success: true });
   
   // 認証用クッキーを削除
