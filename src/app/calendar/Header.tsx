@@ -11,10 +11,12 @@ const Header: React.FC = () => {
   const [userName, setUserName] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [user, setUser] = useState<any>(null);
   const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      setUser(user);
       setLoading(true);
       if (user) {
         try {
@@ -61,54 +63,67 @@ const Header: React.FC = () => {
     }
   };
 
+  // 未認証時はタイトルのみ表示
+  if (!user && !loading) {
+    return (
+      <header className={styles.header}>
+        <div className={styles.logo}>Salon Calendar</div>
+      </header>
+    );
+  }
+
   return (
     <header className={styles.header}>
       <div className={styles.logo}>Salon Calendar</div>
-      <div className={styles.userArea}>
-        <span className={styles.userName}>
-          {loading 
-            ? "読み込み中..." 
-            : userName 
-              ? `${userName} さん` 
-              : ""}
-        </span>
-        <button className={styles.logoutBtn} onClick={handleLogout}>
-          ログアウト
-        </button>
-      </div>
-      <nav>
-        <button
-          onClick={() => router.push("/")}
-          style={{
-            marginRight: 16,
-            padding: "8px 20px",
-            borderRadius: 6,
-            border: "none",
-            background: "#e91e63",
-            color: "#fff",
-            fontWeight: "bold",
-            cursor: "pointer",
-          }}
-        >
-          マイページ（予約状況）
-        </button>
-      </nav>
-      {isAdmin && (
-        <button
-          onClick={() => router.push("/admin")}
-          style={{
-            marginLeft: "1rem",
-            background: "#e91e63",
-            color: "#fff",
-            border: "none",
-            borderRadius: "6px",
-            padding: "0.5rem 1.2rem",
-            fontSize: "1rem",
-            cursor: "pointer",
-          }}
-        >
-          管理画面へ
-        </button>
+      {user && (
+        <>
+          <div className={styles.userArea}>
+            <span className={styles.userName}>
+              {loading 
+                ? "読み込み中..." 
+                : userName 
+                  ? `${userName} さん` 
+                  : ""}
+            </span>
+            <button className={styles.logoutBtn} onClick={handleLogout}>
+              ログアウト
+            </button>
+          </div>
+          <nav>
+            <button
+              onClick={() => router.push("/")}
+              style={{
+                marginRight: 16,
+                padding: "8px 20px",
+                borderRadius: 6,
+                border: "none",
+                background: "#1976d2",
+                color: "#fff",
+                fontWeight: "bold",
+                cursor: "pointer",
+              }}
+            >
+              マイページ（予約状況）
+            </button>
+          </nav>
+          {isAdmin && (
+            <button
+              onClick={() => router.push("/admin")}
+              style={{
+                marginLeft: "1rem",
+                background: "#1976d2",
+                color: "#fff",
+                border: "none",
+                borderRadius: "6px",
+                padding: "0.5rem 1.2rem",
+                fontSize: "1rem",
+                cursor: "pointer",
+              }}
+            >
+              管理画面へ
+            </button>
+          )}
+        </>
       )}
     </header>
   );

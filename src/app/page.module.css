@@ -3,8 +3,8 @@
   --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
   --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
 
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
+  --button-primary-hover: #1565c0;
+  --button-secondary-hover: #e3f2fd;
 
   display: grid;
   grid-template-rows: 20px 1fr 20px;
@@ -22,8 +22,8 @@
     --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
     --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
 
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
+    --button-primary-hover: #90caf9;
+    --button-secondary-hover: #1a237e;
   }
 }
 
@@ -172,14 +172,14 @@ a.secondary {
   margin: 40px auto;
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 24px rgba(25, 118, 210, 0.08);
   padding: 2rem;
 }
 
 .myPageTitle {
   font-size: 2rem;
   font-weight: bold;
-  color: #e91e63;
+  color: #1976d2;
   margin-bottom: 1.5rem;
   text-align: center;
 }
@@ -190,7 +190,7 @@ a.secondary {
 }
 
 .reservationItem {
-  background: #f8f9fa;
+  background: #e3f2fd;
   border-radius: 8px;
   margin-bottom: 1rem;
   padding: 1rem;
@@ -201,11 +201,11 @@ a.secondary {
 
 .reservationInfo {
   font-size: 1rem;
-  color: #333;
+  color: #1565c0;
 }
 
 .cancelButton {
-  background: #e91e63;
+  background: #1976d2;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -216,5 +216,5 @@ a.secondary {
 }
 
 .cancelButton:hover {
-  background: #ad1457;
+  background: #1565c0;
 }

@@ -42,14 +42,22 @@ const CalendarTable: React.FC = () => {
       try {
         const slots: Record<string, string[]> = {};
         const weekDates = getWeekDates(baseDate);
-        for (const date of weekDates) {
-          const dateStr = date.toISOString().split('T')[0];
-          const reservations = await getReservationsByDate(dateStr);
-          const bookedTimes = reservations
-            .filter(r => r.status !== 'canceled')
-            .map(r => r.time);
+
+        // 並列で全日付分の予約を取得
+        const results = await Promise.all(
+          weekDates.map(date => {
+            const dateStr = date.toISOString().split('T')[0];
+            return getReservationsByDate(dateStr).then(reservations => ({
+              dateStr,
+              bookedTimes: reservations.filter(r => r.status !== 'canceled').map(r => r.time)
+            }));
+          })
+        );
+
+        results.forEach(({ dateStr, bookedTimes }) => {
           slots[dateStr] = bookedTimes;
-        }
+        });
+
         setBookedSlots(slots);
       } catch (error) {
         console.error("予約データの取得に失敗しました:", error);

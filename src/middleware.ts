@@ -27,9 +27,10 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
+    '/',
     '/calendar/:path*',
-    '/reservation/confirmation/:path*',
     '/reservation/:path*',
+    '/reservation/confirmation/:path*',
     '/reservation',
     '/admin/:path*',
     '/mypage/:path*'

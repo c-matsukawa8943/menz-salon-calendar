@@ -1,13 +1,9 @@
 'use client'
-import React, { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { auth } from "@/libs/firebase";
+import React from "react";
 import CalendarTable from "./CalendarTable";
 import Header from "./Header";
 
 const CalendarPage = () => {
-  const router = useRouter();
-
   return (
     <div>
       <Header />
