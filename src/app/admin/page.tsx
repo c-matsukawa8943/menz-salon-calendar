@@ -16,16 +16,12 @@ const AdminPage: React.FC = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (!user) {
-        router.push("/login"); // 未ログインならログインページへ
+        router.push("/login");
       } else {
         setUser(user);
-        // 予約データ取得
+        // 予約データ取得（全件）
         const all = await getAllReservations();
-        // 自分の予約だけフィルタ
-        const myReservations = all.filter(
-          (r: any) => r.email === user.email // または r.uid === user.uid
-        );
-        setReservations(myReservations);
+        setReservations(all);
         setIsLoading(false);
       }
     });
