@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/libs/firebase';
 import { useRouter } from 'next/navigation';
+import styles from './Login.module.css';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -42,35 +43,35 @@ export default function Login() {
     };
 
     return (
-        <div style={{ maxWidth: 400, margin: '0 auto', padding: 24 }}>
-            <h2>ログイン</h2>
-            <form onSubmit={handleLogin}>
-                <div>
-                    <label>メールアドレス</label><br />
+        <div className={styles.loginContainer}>
+            <h2 className={styles.loginTitle}>ログイン</h2>
+            <form onSubmit={handleLogin} className={styles.loginForm}>
+                <div className={styles.inputGroup}>
+                    <label className={styles.inputLabel}>メールアドレス</label>
                     <input
                         type="email"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
                         required
-                        style={{ width: '100%', padding: 8, marginBottom: 12 }}
+                        className={styles.inputField}
                     />
                 </div>
-                <div>
-                    <label>パスワード</label><br />
+                <div className={styles.inputGroup}>
+                    <label className={styles.inputLabel}>パスワード</label>
                     <input
                         type="password"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                         required
-                        style={{ width: '100%', padding: 8, marginBottom: 12 }}
+                        className={styles.inputField}
                     />
                 </div>
-                {error && <div style={{ color: 'red', marginBottom: 12 }}>{error}</div>}
-                <button type="submit" disabled={loading} style={{ width: '100%', padding: 10 }}>
+                {error && <div className={styles.errorMessage}>{error}</div>}
+                <button type="submit" disabled={loading} className={styles.loginButton}>
                     {loading ? 'ログイン中...' : 'ログイン'}
                 </button>
             </form>
-            <button onClick={handleRegister} style={{ width: '100%', marginTop: 16, padding: 10 }}>
+            <button onClick={handleRegister} className={styles.registerButton}>
                 新規登録はこちら
             </button>
         </div>

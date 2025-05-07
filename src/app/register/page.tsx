@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from '@/libs/firebase';
 import { doc, setDoc } from 'firebase/firestore';
+import styles from './Register.module.css';
 
 const RegisterPage = () => {
   const [email, setEmail] = useState('');
@@ -50,41 +51,41 @@ const RegisterPage = () => {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: '0 auto', padding: 24 }}>
-      <h2>新規ユーザー登録</h2>
-      <form onSubmit={handleRegister}>
-        <div>
-          <label>名前</label><br />
+    <div className={styles.registerContainer}>
+      <h2 className={styles.registerTitle}>新規ユーザー登録</h2>
+      <form onSubmit={handleRegister} className={styles.registerForm}>
+        <div className={styles.inputGroup}>
+          <label className={styles.inputLabel}>名前</label>
           <input
             type="text"
             value={name}
             onChange={e => setName(e.target.value)}
             required
-            style={{ width: '100%', padding: 8, marginBottom: 12 }}
+            className={styles.inputField}
           />
         </div>
-        <div>
-          <label>メールアドレス</label><br />
+        <div className={styles.inputGroup}>
+          <label className={styles.inputLabel}>メールアドレス</label>
           <input
             type="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
             required
-            style={{ width: '100%', padding: 8, marginBottom: 12 }}
+            className={styles.inputField}
           />
         </div>
-        <div>
-          <label>パスワード</label><br />
+        <div className={styles.inputGroup}>
+          <label className={styles.inputLabel}>パスワード</label>
           <input
             type="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
             required
-            style={{ width: '100%', padding: 8, marginBottom: 12 }}
+            className={styles.inputField}
           />
         </div>
-        {error && <div style={{ color: 'red', marginBottom: 12 }}>{error}</div>}
-        <button type="submit" disabled={loading} style={{ width: '100%', padding: 10 }}>
+        {error && <div className={styles.errorMessage}>{error}</div>}
+        <button type="submit" disabled={loading} className={styles.registerButton}>
           {loading ? '登録中...' : '登録'}
         </button>
       </form>

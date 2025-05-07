@@ -5,10 +5,12 @@ import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "@/libs/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
+import { ADMIN_EMAILS, ADMIN_UIDS } from "../../constants/admin";
 
 const Header: React.FC = () => {
   const [userName, setUserName] = useState<string>("");
   const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -24,12 +26,18 @@ const Header: React.FC = () => {
             // Firestoreにデータがない場合はメールアドレスを表示
             setUserName(user.email || "ゲスト");
           }
+          if (ADMIN_EMAILS.includes(user.email ?? "") && ADMIN_UIDS.includes(user.uid ?? "")) {
+            setIsAdmin(true);
+          } else {
+            setIsAdmin(false);
+          }
         } catch (error) {
           console.error("ユーザー情報の取得に失敗しました:", error);
           setUserName(user.email || "ゲスト");
         }
       } else {
         setUserName("");
+        setIsAdmin(false);
       }
       setLoading(false);
     });
@@ -85,6 +93,23 @@ const Header: React.FC = () => {
           マイページ（予約状況）
         </button>
       </nav>
+      {isAdmin && (
+        <button
+          onClick={() => router.push("/admin")}
+          style={{
+            marginLeft: "1rem",
+            background: "#e91e63",
+            color: "#fff",
+            border: "none",
+            borderRadius: "6px",
+            padding: "0.5rem 1.2rem",
+            fontSize: "1rem",
+            cursor: "pointer",
+          }}
+        >
+          管理画面へ
+        </button>
+      )}
     </header>
   );
 };

@@ -4,6 +4,7 @@ import { getAllReservations, updateReservationStatus, cancelReservation, Reserva
 import styles from "./Admin.module.css";
 import { useRouter } from "next/navigation";
 import { auth } from "@/libs/firebase";
+import { ADMIN_EMAILS, ADMIN_UIDS } from "@/constants/admin";
 
 const AdminPage: React.FC = () => {
   const router = useRouter();
@@ -17,6 +18,13 @@ const AdminPage: React.FC = () => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (!user) {
         router.push("/login");
+      } else if (!ADMIN_EMAILS.includes(user.email ?? "")) {
+        // 管理者でなければトップページなどにリダイレクト
+        alert("管理者権限がありません");
+        router.push("/");
+      } else if (!ADMIN_UIDS.includes(user.uid)) {
+        alert("管理者権限がありません");
+        router.push("/");
       } else {
         setUser(user);
         // 予約データ取得（全件）
