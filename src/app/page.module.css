@@ -166,3 +166,55 @@ a.secondary {
     filter: invert();
   }
 }
+
+.myPageContainer {
+  max-width: 700px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+}
+
+.myPageTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #e91e63;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.reservationList {
+  list-style: none;
+  padding: 0;
+}
+
+.reservationItem {
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reservationInfo {
+  font-size: 1rem;
+  color: #333;
+}
+
+.cancelButton {
+  background: #e91e63;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cancelButton:hover {
+  background: #ad1457;
+}

@@ -4,10 +4,12 @@ import styles from "./Header.module.css";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "@/libs/firebase";
 import { doc, getDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 
 const Header: React.FC = () => {
   const [userName, setUserName] = useState<string>("");
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -66,6 +68,23 @@ const Header: React.FC = () => {
           ログアウト
         </button>
       </div>
+      <nav>
+        <button
+          onClick={() => router.push("/")}
+          style={{
+            marginRight: 16,
+            padding: "8px 20px",
+            borderRadius: 6,
+            border: "none",
+            background: "#e91e63",
+            color: "#fff",
+            fontWeight: "bold",
+            cursor: "pointer",
+          }}
+        >
+          マイページ（予約状況）
+        </button>
+      </nav>
     </header>
   );
 };

@@ -1,0 +1,194 @@
+.confirmationPage {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.confirmationHeader {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.checkIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #4BB543;
+    color: white;
+    font-size: 40px;
+    margin-bottom: 1rem;
+}
+
+.confirmationHeader h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.confirmationHeader p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.reservationDetails {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.detailRow {
+    display: flex;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.detailRow:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.detailLabel {
+    flex: 0 0 120px;
+    font-weight: 600;
+    color: #555;
+}
+
+.detailValue {
+    flex: 1;
+    color: #333;
+}
+
+.statusBadge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.statusBadge[data-status="pending"] {
+    background-color: #FFC107;
+    color: #333;
+}
+
+.statusBadge[data-status="confirmed"] {
+    background-color: #4BB543;
+    color: white;
+}
+
+.statusBadge[data-status="canceled"] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.confirmationMessage {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.actionButtons {
+    display: flex;
+    justify-content: center;
+}
+
+.backButton {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(74, 144, 226, 0.2);
+}
+
+.backButton:hover {
+    background-color: #2a7cd3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(74, 144, 226, 0.3);
+}
+
+.loadingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.loadingSpinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-left-color: #4a90e2;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.errorContainer {
+    text-align: center;
+    padding: 3rem 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.errorContainer h2 {
+    color: #e74c3c;
+    margin-bottom: 1rem;
+}
+
+.errorContainer p {
+    margin-bottom: 2rem;
+    color: #555;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .confirmationPage {
+        padding: 1.5rem;
+        border-radius: 8px;
+    }
+
+    .checkIcon {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+    }
+
+    .confirmationHeader h1 {
+        font-size: 1.5rem;
+    }
+
+    .detailLabel {
+        flex: 0 0 100px;
+    }
+}
