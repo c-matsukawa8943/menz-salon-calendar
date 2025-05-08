@@ -11,6 +11,7 @@ export function middleware(request: NextRequest) {
   // matcherで指定したすべてのパスで認証チェック
   const protectedPaths = [
     '/calendar',
+    '/reservation',
     '/reservation/confirmation',
     '/admin',
     '/mypage'
