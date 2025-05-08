@@ -1,6 +1,7 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+
 
 // Firebaseの設定値をデバッグ用に出力（機密情報を隠して）
 const debugFirebaseConfig = {
@@ -22,6 +23,11 @@ const firebaseConfig = {
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
+
+
+const [existingApp] = getApps();
+
+export const adminApp = existingApp ?? initializeApp();
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);

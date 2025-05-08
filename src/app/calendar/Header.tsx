@@ -7,6 +7,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { ADMIN_EMAILS, ADMIN_UIDS } from "../../constants/admin";
 import type { User } from "firebase/auth";
+// import { adminApp } from "@/libs/firebase";
 
 const Header: React.FC = () => {
   const [userName, setUserName] = useState<string>("");
@@ -53,6 +54,8 @@ const Header: React.FC = () => {
     try {
       // 1. Firebaseからサインアウト
       await signOut(auth);
+
+      // await adminApp.auth().revokeRefreshTokens(user?.uid ?? "");
       
       // 2. クッキー削除APIを呼び出し
       await fetch('/api/logout', { method: 'POST' });
